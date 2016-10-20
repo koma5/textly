@@ -3,11 +3,6 @@
 <head>
     <meta chartset="utf-8">
     <title>textly</title>
-    <script>document.designMode='on'</script>
-    <script>
-    localStorage.setItem("content", "Flatulenz");
-    document.getElementById("body").innerHTML = localStorage.getItem("content");
-    </script>
     <style>
     body {
         font: 2rem/1.5 monospace;
@@ -18,8 +13,48 @@
         background-color:#1F1F1F;
         color:#29FF12;
     }
+    a {
+        color:#29FF12;
+        text-decoration:none;
+    }
+    nav ul {
+        list-style:none;
+    }
+    nav ul li {
+        display:inline;
+        margin:0.5em;
+    }
     </style>
 </head>
 <body>
+    <nav>
+        <ul id="files">
+        </ul>
+    </nav>
+    <article id="content" contenteditable="true"></article>
+    <script>
+    //generate some data to have something to display
+    localStorage.setItem("toDo", "* buy groceries </br>* ...");
+    localStorage.setItem("leet", "1337");
+    localStorage.setItem("2", "blubb");
+
+    //print nav with all the localStorage
+    for (var i = 0; i < localStorage.length; i++) {
+        var link = document.createElement("a");
+        link.setAttribute("href", "#");
+        link.setAttribute("title", localStorage.key(i));
+        link.setAttribute("onclick", 'loadContent("' + localStorage.key(i) +'");')
+        var textnode = document.createTextNode(localStorage.key(i));
+        link.appendChild(textnode);
+        var li = document.createElement("li");
+        li.appendChild(link);
+        document.getElementById("files").appendChild(li);
+    }
+
+    function loadContent(key) {
+        document.getElementById("content").innerHTML = localStorage.getItem(key);
+    }
+
+    </script>
 </body>
 </html>
