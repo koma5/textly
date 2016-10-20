@@ -1,9 +1,13 @@
-data:text/html, <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta chartset="utf-8">
     <title>textly</title>
     <script>document.designMode='on'</script>
+    <script>
+    localStorage.setItem("content", "Flatulenz");
+    document.getElementById("body").innerHTML = localStorage.getItem("content");
+    </script>
     <style>
     body {
         font: 2rem/1.5 monospace;
