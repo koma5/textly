@@ -56,9 +56,11 @@
         var plus = document.createElement("li");
         plus.innerHTML = '<a href="#" onclick="newContent();">+</a>';
         nav.appendChild(plus);
-        var remove = document.createElement("li");
-        remove.innerHTML = '<a href="#" onclick="deleteContent();">-</a>';
-        nav.appendChild(remove);
+        if (localStorage.length > 0) {
+            var remove = document.createElement("li");
+            remove.innerHTML = '<a href="#" onclick="deleteContent();">-</a>';
+            nav.appendChild(remove);
+        }
         for (var i = 0; i < localStorage.length; i++) {
             var contentName = localStorage.key(i);
             var link = document.createElement("a");
