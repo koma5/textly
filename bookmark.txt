@@ -1,1 +1,21 @@
-data:text/html, <script>document.designMode='on'</script><body style="font: 2rem/1.5 monospace;word-break:break-all;max-width:60rem;margin:0 auto;padding:4rem;background-color:#1F1F1F;color:#29FF12;">
+data:text/html, <!DOCTYPE html>
+<html>
+<head>
+    <meta chartset="utf-8">
+    <title>textly</title>
+    <script>document.designMode='on'</script>
+    <style>
+    body {
+        font: 2rem/1.5 monospace;
+        word-break:break-all;
+        max-width:60rem;
+        margin:0 auto;
+        padding:4rem;
+        background-color:#1F1F1F;
+        color:#29FF12;
+    }
+    </style>
+</head>
+<body>
+</body>
+</html>
