@@ -33,10 +33,6 @@
         font-size:0.75em;
         outline:none;
     }
-    #save {
-        position:absolute;
-        bottom:10px;
-    }
     #active {
         text-decoration:underline;
     }
@@ -47,8 +43,7 @@
         <ul id="files">
         </ul>
     </nav>
-    <article id="content" contenteditable="true"></article>
-    <a id="save" href="#" onclick="saveContent();">save</a>
+    <article id="content" contenteditable="true" onblur="saveContent();"></article>
     <script>
     printNav();
 
