@@ -13,9 +13,15 @@
         background-color:#1F1F1F;
         color:#29FF12;
     }
+    #content {
+        min-height:300px;
+    }
     a {
         color:#29FF12;
         text-decoration:none;
+    }
+    nav {
+        height:10%;
     }
     nav ul {
         list-style:none;
@@ -23,6 +29,14 @@
     nav ul li {
         display:inline;
         margin:0.5em;
+        font-size:0.75em;
+    }
+    #save {
+        position:absolute;
+        bottom:10px;
+    }
+    #active {
+        text-decoration:underline;
     }
     </style>
 </head>
@@ -32,27 +46,62 @@
         </ul>
     </nav>
     <article id="content" contenteditable="true"></article>
+    <a id="save" href="#" onclick="saveContent();">save</a>
     <script>
-    //generate some data to have something to display
-    localStorage.setItem("toDo", "* buy groceries </br>* ...");
-    localStorage.setItem("leet", "1337");
-    localStorage.setItem("2", "blubb");
+    printNav();
 
     //print nav with all the localStorage
-    for (var i = 0; i < localStorage.length; i++) {
-        var link = document.createElement("a");
-        link.setAttribute("href", "#");
-        link.setAttribute("title", localStorage.key(i));
-        link.setAttribute("onclick", 'loadContent("' + localStorage.key(i) +'");')
-        var textnode = document.createTextNode(localStorage.key(i));
-        link.appendChild(textnode);
-        var li = document.createElement("li");
-        li.appendChild(link);
-        document.getElementById("files").appendChild(li);
+    function printNav(activeContent = false) {
+        nav = document.getElementById("files")
+        while (nav.hasChildNodes()) {
+            nav.removeChild(nav.firstChild);
+        }
+        var plus = document.createElement("li");
+        plus.innerHTML = '<a href="#" onclick="newContent();">+</a>';
+        nav.appendChild(plus);
+        for (var i = 0; i < localStorage.length; i++) {
+            var contentName = localStorage.key(i);
+            var link = document.createElement("a");
+            link.setAttribute("href", "#");
+            link.setAttribute("title", contentName);
+            link.setAttribute("onclick", 'loadContent("' + contentName +'");')
+            if(activeContent == contentName) {
+                link.setAttribute("id", "active");
+            }
+            var textnode = document.createTextNode(contentName);
+            link.appendChild(textnode);
+            var li = document.createElement("li");
+            li.appendChild(link);
+            nav.appendChild(li);
+        }
     }
 
     function loadContent(key) {
         document.getElementById("content").innerHTML = localStorage.getItem(key);
+        printNav(key);
+    }
+
+    function newContent() {
+        var li = document.createElement("li");
+        li.setAttribute("contenteditable", "true");
+        li.setAttribute("onblur", "saveOnFocusLoss();");
+        li.setAttribute("id", "newContent");
+        var textnode = document.createTextNode("");
+        li.appendChild(textnode);
+        document.getElementById("files").appendChild(li);
+        li.focus();
+    }
+
+    function saveOnFocusLoss() {
+        var name = document.getElementById("newContent").innerHTML;
+        localStorage.setItem(name, "");
+        document.getElementById("content").innerHTML = "";
+        printNav(name);
+    }
+
+    function saveContent() {
+        var name = document.getElementById("active").innerHTML;
+        localStorage.setItem(name, document.getElementById("content").innerHTML);
     }
 
     </script>
