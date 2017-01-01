@@ -87,6 +87,16 @@
         var li = document.createElement("li");
         li.setAttribute("contenteditable", "true");
         li.setAttribute("onblur", "saveOnFocusLoss();");
+        li.addEventListener('keydown', function (e) {
+          var charCode = e.which || e.keyCode;
+          if (charCode == 13) {
+            var regex = /^\s*(?:<br\s*\/?\s*>)+|(?:<br\s*\/?\s*>)+\s*$/gi
+            var name = document.getElementById("newContent").innerHTML;
+            name = name.replace(regex, '');
+            document.getElementById("newContent").innerHTML = name;
+            saveOnFocusLoss();
+          }
+        });
         li.setAttribute("id", "newContent");
         var textnode = document.createTextNode("");
         li.appendChild(textnode);
@@ -97,7 +107,9 @@
     function saveOnFocusLoss() {
         var name = document.getElementById("newContent").innerHTML;
         localStorage.setItem(name, "");
-        document.getElementById("content").innerHTML = "";
+        content = document.getElementById("content");
+        content.innerHTML = "";
+        content.focus();
         printNav(name);
     }
 
